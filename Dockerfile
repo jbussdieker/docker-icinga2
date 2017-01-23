@@ -97,7 +97,7 @@ RUN mkdir -p /var/log/supervisor; \
  mkdir -p /etc/icingaweb2/enabledModules; \
  chown -R apache:icingaweb2 /etc/icingaweb2/*; \
  find /etc/icingaweb2 -type f -name "*.ini" -exec chmod 660 {} \; ; \
- find /etc/icingaweb2 -type d -exec chmod 2770 {} \; \
+ find /etc/icingaweb2 -type d -exec chmod 2770 {} \; ; \
  chmod 0755 /usr/local/bin/pagerduty_icinga.pl
 
 # configure PHP timezone
