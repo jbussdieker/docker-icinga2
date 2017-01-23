@@ -36,7 +36,7 @@ RUN [ -f /etc/rpm/macros.imgcreate ] && sed -i '/excludedocs/d' /etc/rpm/macros.
 RUN [ -f /etc/yum.conf ] && sed -i '/nodocs/d' /etc/yum.conf || exit 0
 
 RUN yum -y install vim hostname bind-utils cronie logrotate supervisor openssh openssh-server openssh-client rsyslog sudo passwd sed which vim-enhanced pwgen psmisc mailx \
- httpd nagios-plugins-all mariadb-server mariadb-libs mariadb; \
+ httpd nagios-plugins-all mariadb-server mariadb-libs mariadb perl-libwww-perl perl-Crypt-SSLeay perl-Sys-Syslog perl-LWP-Protocol-https; \
  yum -y install --enablerepo=icinga-snapshot-builds icinga2 icinga2-doc icinga2-ido-mysql icingaweb2 icingacli php-ZendFramework php-ZendFramework-Db-Adapter-Pdo-Mysql; \
  yum clean all;
 
@@ -97,7 +97,8 @@ RUN mkdir -p /var/log/supervisor; \
  mkdir -p /etc/icingaweb2/enabledModules; \
  chown -R apache:icingaweb2 /etc/icingaweb2/*; \
  find /etc/icingaweb2 -type f -name "*.ini" -exec chmod 660 {} \; ; \
- find /etc/icingaweb2 -type d -exec chmod 2770 {} \;
+ find /etc/icingaweb2 -type d -exec chmod 2770 {} \; \
+ chmod 0755 /usr/local/bin/pagerduty_icinga.pl
 
 # configure PHP timezone
 RUN sed -i 's/;date.timezone =/date.timezone = UTC/g' /etc/php.ini
